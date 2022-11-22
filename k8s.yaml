@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: google-unbun-bot
+  labels:
+    app: google-unbun-bot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: google-unbun-bot
+  template:
+    metadata:
+      labels:
+        app: google-unbun-bot
+    spec:
+      containers:
+        - name: google-unbun-bot
+          image: gelugu/google_unbun_bot:1.0.0
+          imagePullPolicy: Always
+          env:
+            - name: TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: google-unbun-bot
+                  key: token
